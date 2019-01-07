@@ -30,3 +30,68 @@
     transform: rotate(360deg);
   }
 }
+
+/* The side navigation menu 
+code is mainly based on https://www.w3schools.com/howto/howto_js_sidenav.asp */
+.sidebar {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black*/
+    opacity:0.8;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.sidebar button {
+    padding: 8px 8px 8px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
+    display: block;
+    transition: 0.3s;
+    text-align: left
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar button:hover {
+    color: red;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+    position: absolute;
+    padding: 10px 10px 10px 10px;
+    top: 10px;
+    left: 0;
+    font-size: 18px;
+}
+
+/* On smaller screens, where height is less than 450px,
+change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar .closebtn {font-size: 18px;}
+}
+/* Up to here */
+.buttonGrp button{
+  display: block;
+  padding: 5px;
+  width: 90%;
+}
+
+.openbtn {
+    position: absolute;
+    top: 10px;
+    padding: 10px 10px 10px 10px;
+    font-size: 18px;
+    background: black;
+    color: white;
+    left: 0;
+    cursor: pointer;
+    z-index: 1;
+}
