@@ -1,68 +1,58 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Project7 : Neighborhood Map (React)
 
-## Available Scripts
+Project7 [the Neighborhood Map (React) Project], a project requirement for Udacity's Front End Nanodegree Course, is a single page map application that displays a map with places of interest and lets the user filter the locations and access additional information.  For my implementation of this project, I chose some restaurants in a particular portion of the city of Keller, TX as places of interest.  The restaurants are depicted with markers on the map, and a sidebar that can be displayed/hidden provides a list view and an input text box where a user can type in to filter the list of places.  Clicking on a marker will display an infowindow that contains the name of the restaurant, its address, a website (if available), and a photo (also, if available).
+This project was bootstrapped with Create React App and uses the following APIs: Google Map API, Foursquare API, and the google-maps-react component.  Project dependencies are installed with 'npm install' and the development server is started with 'npm start'. The organization of the files of the finished project is as follows:
 
-In the project directory, you can run:
+├── node_modules (folder)
+├── public
+│   ├── favicon.ico # React Icon
+│   ├── index.html 
+│   └── manifest.json 
+└── src
+    ├── Components # React UI components 
+    │   ├── MapPage.js
+    │   └── SideBar.js
+    ├── App.css # Styles for the app.
+    ├── App.js # This is the root of the app. 
+    ├── App.test.js # Used for testing. Provided with Create React App. Testing is not required.
+    ├── index.css # Global styles. 
+    ├── index.js # File used for DOM rendering only.
+    ├── locdata.json # Location data for map.
+    ├── logo.svg # React logo provided with Create React App.
+    └── serviceWorker.js # service worker file provided with Create React App.
 
-### `npm start`
+To start building the React application, install the create-react-app package by typing the following in the command line:
+ 
+      npx create-react-app project7
+      or
+      npm init react-app project7
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+ Follow on-screen instructions in order to create the application's configuration.  Since the google-maps-react library is also needed to build the application, download and install said library by typing the following in the command line:
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+      npm install --save google-maps-react
 
-### `npm test`
+ A google maps API key and Foursquare credentials (Client ID and Client Secret) are also needed in order to use these third-party APIs in creating and running the application.  Instructions on how to do these can be found in their respective websites (https://developers.google.com/maps/documentation/javascript/get-api-key and https://developer.foursquare.com/).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ The Create React App package automatically creates a React application that can be used as the basis for developing the React Neighborhood Map project.
 
-### `npm run build`
+The finished project can be run by typing the following in the command line:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+     npm start
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+The application wil run in a web browser with address at localhost using port 3000 as default.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Create React App also automatically creates a service worker file that can be used in the production build (but is inoperable in development).  To utilize this for offline first benefit, run the serviceworker.register() function instead of the serviceworker.unregister() funtion by editing the last line in the index,js file.  To run a production build, create first a build directory by the typing the following in the command line:
 
-### `npm run eject`
+     npm run build
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To create a static server, run:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+     npm install -g serve
+     serv -s build
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The application will run from the static site using port 5000 by default. 
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+DISCLOSURE:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Portions of the scripts that I developed were based on those that can be found in "FEND P7 Walkthrough with Doug Brown" at https://www.youtube.com/watch?v=NVAVLCJwAAo&feature=youtu.be by Doug Brown, https://www.w3schools.com/howto/howto_js_sidenav.asp, and documentations of the google-maps-react component at https://www.npmjs.com/package/google-maps-react and https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/.

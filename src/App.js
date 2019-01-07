@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import MapPage from './Components/MapPage';
-import locdata from './locdata.json'
+import locdata from './locdata.json';
 
 class App extends Component {
 
   state={
     initialCenter: {  // Keller TX by default
       lat: 32.927533,
-      lng: -97.235995 
+      lng: -97.260000 // to make way for the sidebar
     },
     zoom: 13,
     places: locdata,
     filtered: null,
-    selectedIndex: null
+    selectedIndex: null,
+    hasError: null
   }
   style ={
     mapDim: {
@@ -29,7 +30,7 @@ class App extends Component {
       filtered: this.filterPlaces(this.state.places,"")
     });
   }
-   searchKey = (query) => {
+  searchKey = (query) => {
       this.setState({
       filtered: this.filterPlaces(this.state.places, query)
     });

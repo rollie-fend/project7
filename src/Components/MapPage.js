@@ -2,6 +2,7 @@ import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 import React, { Component } from 'react';
 import '../App.css'
 import SideBar from './SideBar'
+import NoMap from './NoMap'
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export class MapContainer extends Component {
       showingInfoWindow: false,
       map: null,
       markers: [],
-      markerObjects: []
+      markerObjects: [],
     };
   }
 
@@ -103,7 +104,6 @@ export class MapContainer extends Component {
     return data.response.venues.filter(item => item.name.includes(props.name) || props.name.includes(item.name));
   }
 
-
   addMarker = (places) => {
   // Check for completion    
     if (!places) 
@@ -138,17 +138,15 @@ export class MapContainer extends Component {
 
   render() {
     let selPl = this.state.selectedPlace;
-    console.log('this.props', this.props);
-    console.log('this.state', this.state);
     return (
-      <div>
+      <div className='App' tabIndex="0">
         <Map google={this.props.google} 
           initialCenter={this.props.initialCenter}
           onReady={this.markedMap}
           zoom={this.props.zoom}
           style={this.style}
           role='application'
-          aria-label='map'
+          aria-label='map of Keller City, Texas'
           onClick={this.closeInfoWindow}>
           <InfoWindow
             marker={this.state.activeMarker}
@@ -163,10 +161,10 @@ export class MapContainer extends Component {
                     alt={selPl.name + " food picture"}
                     src={selPl.photo.items[0].prefix + "120x120" + selPl.photo.items[0].suffix}/>
                     <p>Foursquare photo</p>
-                    {selPl && selPl.url?(<a href={selPl.url}>Go to website</a>): ""}
                   </div>
                   )
               : ""}
+              {selPl && selPl.url?(<a href={selPl.url}>Go to website</a>): ""}
             </div>
           </InfoWindow>
         </Map>
@@ -178,5 +176,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyBMrOY3Jca5wPn7H06AucRAieTIUrq-gUU"
+  apiKey: "AIzaSyBMrOY3Jca5wPn7H06AucRAieTIUrq-gUU", LoadingContainer:NoMap
 })(MapContainer)
