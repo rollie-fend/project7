@@ -16,6 +16,23 @@ export class MapContainer extends Component {
     };
   }
 
+  componentWillReceiveProps = (props) => {
+    if (this.state.markers.length !== props.places.length) {
+      this.addMarker(props.places);
+      this.setState({activeMarker: null});
+      this.closeInfoWindow();
+      return;
+    }
+    if (!props.selectedIndex || (this.state.activeMarker && 
+      (this.state.markers[props.selectedIndex] !== this.state.activeMarker))) {
+        this.closeInfoWindow();
+    }
+    if (props.selectedIndex === null || typeof(props.selectedIndex) === "undefined") {
+      return;
+    };
+    this.onMarkerClick(this.state.markerObjects[props.selectedIndex], this.state.markers[props.selectedIndex]);    
+  }
+
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
     // FourSquare data request for the selected place
@@ -36,7 +53,7 @@ export class MapContainer extends Component {
         };
 
     // From Foursquare data, get list of photos for selected place
-        if (selectedPlace.fsData) {
+       if (selectedPlace.fsData) {
           let fsInfo = `https://api.foursquare.com/v2/venues/${FSvenue[0].id}/photos?client_id=${'XCMLSRFFMTKU5EL2CSNPRQX1T2SV1QOEEQ4HQ5QEDHXDYNZ3'}&client_secret=${'ZJRXLVVLFQSAQZG3NI4UU22CDZ0ZQ0D3MQWBNBRLSWXSHK50'}&v=${'20180323'}`;
           fetch(fsInfo)
             .then(response => response.json())
@@ -71,7 +88,7 @@ export class MapContainer extends Component {
 
   closeInfoWindow = () => {
     this.state.activeMarker && this.state.activeMarker.setAnimation(null);
-    this.setState({showingInfoWindow: false, activeMarker: null, selectedPlace: null});
+    this.setState({selectedPlace: null, activeMarker: null, showingInfoWindow: false});
   }
 
   onMapClicked = props => {
@@ -88,11 +105,11 @@ export class MapContainer extends Component {
 
 
   addMarker = (places) => {
-  // Check for completion  
+  // Check for completion    
     if (!places) 
       return;
     this.state.markers.forEach(marker => marker.setMap(null));
-  // Loop to add markers and create marker objects
+  // Loop to add markers and create marker objects    
     let markerObjects = [];
     let markers = places.map((places, index) => {
       let placesProps = {
@@ -153,7 +170,8 @@ export class MapContainer extends Component {
             </div>
           </InfoWindow>
         </Map>
-        <SideBar places = {this.props.places}/>
+        <SideBar places = {this.props.places} filterPlaces={this.props.searchKey} clickedVenue=
+          {this.props.clickedVenue}/>
       </div>
     );
   }

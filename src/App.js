@@ -10,7 +10,9 @@ class App extends Component {
       lng: -97.235995 
     },
     zoom: 13,
-    places: locdata
+    places: locdata,
+    filtered: null,
+    selectedIndex: null
   }
   style ={
     mapDim: {
@@ -18,9 +20,28 @@ class App extends Component {
       height: 100
     },
     header: {
-      marginTop: 0
+      marginTop: '0'
     }
   };
+
+  componentDidMount() {
+    this.setState({
+      filtered: this.filterPlaces(this.state.places,"")
+    });
+  }
+   searchKey = (query) => {
+      this.setState({
+      filtered: this.filterPlaces(this.state.places, query)
+    });
+  }
+
+  filterPlaces = (places, query) => {
+    return places.filter(places => places.name.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  clickedVenue = (index) => {
+    this.setState({ selectedIndex: index})
+  }
 
   render() {
     return (
@@ -28,7 +49,11 @@ class App extends Component {
         initialCenter={this.state.initialCenter}
         zoom={this.state.zoom}
         style={this.style}
-        places={this.state.places}
+        places={this.state.filtered}
+        selectedIndex={this.state.selectedIndex}
+        searchKey={this.searchKey}
+        clickedVenue={this.clickedVenue}
+        filterPlaces={this.filterPlaces} 
       />
     );
   }
