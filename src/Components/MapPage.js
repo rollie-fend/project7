@@ -18,12 +18,51 @@ export class MapContainer extends Component {
 
   onMarkerClick = (props, marker, e) => {
     this.closeInfoWindow();
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
+    // FourSquare data request for the selected place
+    let fsInfo = `https://api.foursquare.com/v2/venues/search?client_id=${'XCMLSRFFMTKU5EL2CSNPRQX1T2SV1QOEEQ4HQ5QEDHXDYNZ3'}&client_secret=${'ZJRXLVVLFQSAQZG3NI4UU22CDZ0ZQ0D3MQWBNBRLSWXSHK50'}&v=${'20180323'}&radius=100&ll=${props.position.lat},${props.position.lng}&llAcc=100`;
+    let headers = new Headers();
+    let request = new Request(fsInfo, {
+      method: 'GET',
+      headers
     });
-  };
+    let selectedPlace;
+    fetch(request)
+      .then(response => response.json())
+      .then(result => {
+        let FSvenue = this.getFSdata(props, result);
+        selectedPlace = {
+          ...props,
+          fsData: FSvenue[0]
+        };
+
+    // From Foursquare data, get list of photos for selected place
+        if (selectedPlace.fsData) {
+          let fsInfo = `https://api.foursquare.com/v2/venues/${FSvenue[0].id}/photos?client_id=${'XCMLSRFFMTKU5EL2CSNPRQX1T2SV1QOEEQ4HQ5QEDHXDYNZ3'}&client_secret=${'ZJRXLVVLFQSAQZG3NI4UU22CDZ0ZQ0D3MQWBNBRLSWXSHK50'}&v=${'20180323'}`;
+          fetch(fsInfo)
+            .then(response => response.json())
+            .then(result => {
+              selectedPlace = {
+              ...selectedPlace,
+              photo: result.response.photos
+              };
+              if (this.state.activeMarker) 
+                this.state.activeMarker.setAnimation(null);
+                marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+                this.setState({
+                  selectedPlace,
+                  activeMarker: marker,
+                  showingInfoWindow: true});
+            })
+        } else {
+          marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+          this.setState({
+            selectedPlace,
+            activeMarker: marker,
+            showingInfoWindow: true
+          });
+        }
+    })
+  }
 
   markedMap = (props, map) => {
     this.setState({map});
@@ -43,6 +82,10 @@ export class MapContainer extends Component {
       });
     }
   };
+  getFSdata = (props, data) => {
+    return data.response.venues.filter(item => item.name.includes(props.name) || props.name.includes(item.name));
+  }
+
 
   addMarker = (places) => {
   // Check for completion  
@@ -58,7 +101,8 @@ export class MapContainer extends Component {
         name: places.name,
         position: places.pos,
         url: places.url,
-        street: places.street
+        street: places.street,
+        fsInfo: places.fsInfo
       };
       markerObjects.push(placesProps);
       let animation = this.props.google.maps.Animation.DROP;
@@ -96,11 +140,20 @@ export class MapContainer extends Component {
             <div>
               <h3>{selPl && selPl.name}</h3>
               <p>{selPl && selPl.street}</p>
-              {selPl && selPl.url?(<a href={selPl.url}>Go to website</a>): ""}
+              {selPl && selPl.photo
+                ? (
+                  <div><img
+                    alt={selPl.name + " food picture"}
+                    src={selPl.photo.items[0].prefix + "120x120" + selPl.photo.items[0].suffix}/>
+                    <p>Foursquare photo</p>
+                    {selPl && selPl.url?(<a href={selPl.url}>Go to website</a>): ""}
+                  </div>
+                  )
+              : ""}
             </div>
           </InfoWindow>
         </Map>
-        <SideBar/>
+        <SideBar places = {this.props.places}/>
       </div>
     );
   }
