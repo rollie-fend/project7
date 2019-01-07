@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import MapPage from './Components/MapPage';
 
 class App extends Component {
+  state={
+    initialCenter: {  // Keller TX by default
+      lat: 32.927533,
+      lng: -97.235995
+    },
+    zoom: 13,
+  }
+  style ={
+    mapDim: {
+      width: 100,
+      height: 100
+    },
+    header: {
+      marginTop: 0
+    }
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MapPage
+        initialCenter={this.state.initialCenter}
+        zoom={this.state.zoom}
+        style={this.style}
+      />
     );
   }
 }
 
 export default App;
+
