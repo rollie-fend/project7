@@ -1,25 +1,43 @@
 # Project7 : Neighborhood Map (React)
 
 Project7 [the Neighborhood Map (React) Project], a project requirement for Udacity's Front End Nanodegree Course, is a single page map application that displays a map with places of interest and lets the user filter the locations and access additional information.  For my implementation of this project, I chose some restaurants in a particular portion of the city of Keller, TX as places of interest.  The restaurants are depicted with markers on the map, and a sidebar that can be displayed/hidden provides a list view and an input text box where a user can type in to filter the list of places.  Clicking on a marker will display an infowindow that contains the name of the restaurant, its address, a website (if available), and a photo (also, if available).
+
 This project was bootstrapped with Create React App and uses the following APIs: Google Map API, Foursquare API, and the google-maps-react component.  Project dependencies are installed with 'npm install' and the development server is started with 'npm start'. The organization of the files of the finished project is as follows:
 
 ├── node_modules (folder)
+
 ├── public
+
 │   ├── favicon.ico # React Icon
-│   ├── index.html 
-│   └── manifest.json 
+
+│   ├── index.html
+
+│   └── manifest.json
+
 └── src
-    ├── Components # React UI components 
+
+    ├── Components # React UI components
+    
     │   ├── MapPage.js
+    
     │   └── SideBar.js
-    ├── App.css # Styles for the app.
-    ├── App.js # This is the root of the app. 
+    
+    ├── App.css # Styles for the app
+    
+    ├── App.js # This is the root of the app
+    
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is not required.
-    ├── index.css # Global styles. 
-    ├── index.js # File used for DOM rendering only.
-    ├── locdata.json # Location data for map.
-    ├── logo.svg # React logo provided with Create React App.
-    └── serviceWorker.js # service worker file provided with Create React App.
+    
+    ├── index.css # Global styles
+    
+    ├── index.js # File used for DOM rendering only
+    
+    ├── locdata.json # Location data for map
+    
+    ├── logo.svg # React logo provided with Create React App
+    
+    └── serviceWorker.js # service worker file provided with Create React App
+    
 
 To start building the React application, install the create-react-app package by typing the following in the command line:
  
