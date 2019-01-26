@@ -12,8 +12,7 @@ class App extends Component {
     zoom: 13,
     places: locdata,
     filtered: null,
-    selectedIndex: null,
-    hasError: null
+    selectedIndex: null
   }
   style ={
     mapDim: {
@@ -54,7 +53,6 @@ class App extends Component {
         selectedIndex={this.state.selectedIndex}
         searchKey={this.searchKey}
         clickedVenue={this.clickedVenue}
-        filterPlaces={this.filterPlaces} 
       />
     );
   }
